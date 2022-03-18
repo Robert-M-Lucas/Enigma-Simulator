@@ -1,7 +1,7 @@
 # Enigma-Simulator
 Simulates an Enigma machine
 
-A build can be found here: https://drive.google.com/drive/folders/1ltD9UtSPMLAYL3TrhXXglumO-CNnsrt1?usp=sharing
+A (potentially outdated) build can be found here: https://drive.google.com/drive/folders/1ltD9UtSPMLAYL3TrhXXglumO-CNnsrt1?usp=sharing
 
 Uses rotor wirings found here: https://en.wikipedia.org/wiki/Enigma_rotor_details
 
