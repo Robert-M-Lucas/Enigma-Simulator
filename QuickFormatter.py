@@ -1,3 +1,5 @@
+# Converts wikipedia rotor encodings to C# int arrays
+
 _in = input("Enter encoding string: ")
 
 alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

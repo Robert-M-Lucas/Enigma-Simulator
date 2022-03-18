@@ -26,6 +26,7 @@ public class Rotors : MonoBehaviour
     [HideInInspector]
     public int reflector;
 
+    // Used when changing initial positions
     public void Increment(int rotor){
         if (rotor_type[rotor] == -1){
             return;
@@ -49,7 +50,8 @@ public class Rotors : MonoBehaviour
             CheckTurnover(rotor - 1);
         }
     }
-
+    
+    // Used when typing
     public void LinkedIncrement(){
         rotor_pos[3]++;
         CheckTurnover(3);
@@ -78,6 +80,7 @@ public class Rotors : MonoBehaviour
         }
     }
 
+    // Used for backspace
     public void LinkedDecrement(){
         rotor_pos[3]--;
         CheckDeTurnover(3);
@@ -86,6 +89,7 @@ public class Rotors : MonoBehaviour
         rotors[1].text = alph[rotor_pos[1]].ToString();
     }
 
+    // Used for setting initial rotors
     public void Decrement(int rotor){
         if (rotor_type[rotor] == -1){
             return;
@@ -108,6 +112,7 @@ public class Rotors : MonoBehaviour
         outputManager.Reset();
     }
 
+    // Change leftmost rotor
     public void ChangeSpecialRotor(){
         if (rotor_type[0] == -1){
             rotor_type[0] = 8;

@@ -43,6 +43,7 @@ public class Enigma : MonoBehaviour
         
     }
 
+    // Simulates electricity flowing backwards though a rotor
     int ReflectArr(int[,] arr, int type, int letter){
         for (int i = 0; i < 26; i++){
             if (arr[type,i] == letter){
