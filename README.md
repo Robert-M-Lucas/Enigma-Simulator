@@ -11,3 +11,4 @@ https://www.101computing.net/enigma-machine-emulator/
 
 - A dash above the leftmost rotor indicated that it is not in use
 - The final encrypted message would not have spaces or new lines however these are included for ease of use
+- The plugboard would never have more than 10 connections however this is supported
