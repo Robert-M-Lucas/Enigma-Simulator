@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Enigma : MonoBehaviour
 {
-    private KeyCode[] Keys = new KeyCode[] {
+    [HideInInspector]
+    public KeyCode[] Keys = new KeyCode[] {
         KeyCode.A, KeyCode.B, KeyCode.C, KeyCode.D, KeyCode.E, KeyCode.F, KeyCode.G,
         KeyCode.H, KeyCode.I, KeyCode.J, KeyCode.K, KeyCode.L, KeyCode.M, KeyCode.N, KeyCode.O, KeyCode.P,
         KeyCode.Q, KeyCode.R, KeyCode.S, KeyCode.T, KeyCode.U, KeyCode.V, KeyCode.W, KeyCode.X, KeyCode.Y, KeyCode.Z
@@ -13,8 +15,16 @@ public class Enigma : MonoBehaviour
     public Keyboard InputKeyboard;
     public Keyboard OutputKeyboard;
 
+    [HideInInspector]
+    public bool InputLocked = false;
+
     public Rotors rotors;
     public OutputManager outputManager;
+
+    public Plugboard plugboard;
+
+    public TMP_Text DebugTextLeft;
+    public TMP_Text DebugTextRight;
 
     private int[,] RotorEncodings = new int[,] {
         { 4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9 },
@@ -55,24 +65,25 @@ public class Enigma : MonoBehaviour
 
     void EnigmaAlgorithm(int letter_in){
         string out_str = "";
-        out_str += "[Letter in] " + rotors.alph[letter_in] + "->";
-        out_str += "\n";
+        out_str += "[Letter in] " + rotors.alph[letter_in] + "-->\n";
         int letter = letter_in;
+
+        letter = plugboard.plugboard(letter);
+        out_str += "[Plugboard] " + rotors.alph[letter] + "-->\n";
 
         for (int r = 3; r > 0; r--){
             letter += rotors.rotor_pos[r];
             if (letter > 25){
                 letter -= 26;
             }
-            out_str += "[Wheel " + r + " moved] " + rotors.alph[letter] + "->\n";
+            out_str += "[Wheel " + r + " moved] " + rotors.alph[letter] + "\n";
             letter = RotorEncodings[rotors.rotor_type[r], letter];
-            out_str += "[Wheel " + r + " encode] " + rotors.alph[letter] + "->\n";
+            out_str += "[Wheel " + r + " encode] " + rotors.alph[letter] + "\n";
             letter -= rotors.rotor_pos[r];
             if (letter < 0){
                 letter += 26;
             }
-            // Debug.Log("Rotor " + (r+1) + " position: " + rotors.alph[rotors.rotor_pos[r]]);
-            out_str += "[Wheel " + r + " moved] " +  rotors.alph[letter] + "-->\n\n";
+            out_str += "[Wheel " + r + " moved] " +  rotors.alph[letter] + "-->\n";
         }
 
         if (rotors.rotor_type[0] != -1){
@@ -80,35 +91,35 @@ public class Enigma : MonoBehaviour
             if (letter > 25){
                 letter -= 26;
             }
-            out_str += "[Wheel " + 0 + " moved] " + rotors.alph[letter] + "->\n";
+            out_str += "[Wheel " + 0 + " moved] " + rotors.alph[letter] + "\n";
             letter = RotorEncodings[rotors.rotor_type[0], letter];
-            out_str += "[Wheel " + 0 + " encode] " + rotors.alph[letter] + "->\n";
+            out_str += "[Wheel " + 0 + " encode] " + rotors.alph[letter] + "\n";
             letter -= rotors.rotor_pos[0];
             if (letter < 0){
                 letter += 26;
             }
-            // Debug.Log("Rotor " + (r+1) + " position: " + rotors.alph[rotors.rotor_pos[r]]);
-            out_str += "[Wheel " + 0 + " moved] " +  rotors.alph[letter] + "-->\n\n";
+            out_str += "[Wheel " + 0 + " moved] " +  rotors.alph[letter] + "-->\n";
         }
 
         letter = ReflectorEncodings[rotors.reflector, letter];
         out_str += "[Reflector] " + rotors.alph[letter] + "->";
-        out_str += "\n";
+        DebugTextLeft.text = out_str;
+        Debug.Log(out_str);
+        out_str = "";
 
         if (rotors.rotor_type[0] != -1){
             letter += rotors.rotor_pos[0];
             if (letter > 25){
                 letter -= 26;
             }
-            out_str += "[Wheel " + 0 + " moved] " + rotors.alph[letter] + "->\n";
+            out_str += "[Wheel " + 0 + " moved] " + rotors.alph[letter] + "\n";
             letter = ReflectArr(RotorEncodings, rotors.rotor_type[0], letter);
-            out_str += "[Wheel " + 0 + " encoded] " + rotors.alph[letter] + "->\n";
+            out_str += "[Wheel " + 0 + " encoded] " + rotors.alph[letter] + "\n";
             letter -= rotors.rotor_pos[0];
             if (letter < 0){
                 letter += 26;
             }
-            // Debug.Log("Rotor " + (r+1) + " position: " + rotors.alph[rotors.rotor_pos[r]]);
-            out_str += "[Wheel " + 0 + " moved] " +  rotors.alph[letter] + "-->\n\n";
+            out_str += "[Wheel " + 0 + " moved] " +  rotors.alph[letter] + "-->\n";
         }
 
         for (int r = 1; r < 4; r++){
@@ -116,17 +127,19 @@ public class Enigma : MonoBehaviour
             if (letter > 25){
                 letter -= 26;
             }
-            out_str += "[Wheel " + r + " moved] " + rotors.alph[letter] + "->\n";
+            out_str += "[Wheel " + r + " moved] " + rotors.alph[letter] + "\n";
             letter = ReflectArr(RotorEncodings, rotors.rotor_type[r], letter);
-            out_str += "[Wheel " + r + " encoded] " + rotors.alph[letter] + "->\n";
+            out_str += "[Wheel " + r + " encoded] " + rotors.alph[letter] + "\n";
             letter -= rotors.rotor_pos[r];
             if (letter < 0){
                 letter += 26;
             }
-            // Debug.Log("Rotor " + (r+1) + " position: " + rotors.alph[rotors.rotor_pos[r]]);
-            out_str += "[Wheel " + r + " moved] " +  rotors.alph[letter] + "-->\n\n";
+            out_str += "[Wheel " + r + " moved] " +  rotors.alph[letter] + "-->\n";
         }
 
+        letter = plugboard.plugboard(letter);
+        out_str += "[Plugboard] " + rotors.alph[letter] + "-->";
+        DebugTextRight.text = out_str;
         Debug.Log(out_str);
         outputManager.AddLetter(rotors.alph[letter_in].ToString(), rotors.alph[letter].ToString());
         OutputKeyboard.Light(letter);
@@ -135,13 +148,15 @@ public class Enigma : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < Keys.Length; i++){
-            if (Input.GetKeyDown(Keys[i])) { InputKeyboard.Light(i); rotors.LinkedIncrement(); EnigmaAlgorithm(i); }
-        }
+        if (!InputLocked){
+            for (int i = 0; i < Keys.Length; i++){
+                if (Input.GetKeyDown(Keys[i])) { InputKeyboard.Light(i); rotors.LinkedIncrement(); EnigmaAlgorithm(i); }
+            }
 
-        if (Input.GetKeyDown(KeyCode.Backspace) && outputManager.total_letters > 0){
-            outputManager.DeleteLetter();
-            rotors.LinkedDecrement();
+            if (Input.GetKeyDown(KeyCode.Backspace) && outputManager.total_letters > 0){
+                outputManager.DeleteLetter();
+                rotors.LinkedDecrement();
+            }
         }
     }
 }

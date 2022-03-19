@@ -9,6 +9,8 @@ public class OutputManager : MonoBehaviour
     public TMP_Text output;
     public Rotors rotors;
 
+    public Enigma enigma;
+
     [HideInInspector]
     public int total_letters = 0;
     // Start is called before the first frame update
@@ -18,11 +20,13 @@ public class OutputManager : MonoBehaviour
     }
 
     void LateUpdate(){
-        if (Input.GetKeyDown(KeyCode.Space)){
-            AddLetter(" ", " ");
-        }
-        if (Input.GetKeyDown(KeyCode.Return)){
-            AddLetter("\n", "\n");
+        if (!enigma.InputLocked){
+            if (Input.GetKeyDown(KeyCode.Space)){
+                AddLetter(" ", " ");
+            }
+            if (Input.GetKeyDown(KeyCode.Return)){
+                AddLetter("\n", "\n");
+            }
         }
     }
 
