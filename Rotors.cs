@@ -70,7 +70,7 @@ public class Rotors : MonoBehaviour
         if (hook1 < 0){
             hook1 += 26;
         }
-        if (hook2 < 0){
+        if (hook2 != -2 && hook2 < 0){
             hook2 += 26;
         }
 

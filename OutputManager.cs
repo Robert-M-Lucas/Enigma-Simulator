@@ -47,8 +47,13 @@ public class OutputManager : MonoBehaviour
         if (total_letters <= 0){
             return;            
         }
+        char letter = input.text[input.text.Length-1];
         total_letters--;
         input.text = input.text.Substring(0, input.text.Length-1);
         output.text = output.text.Substring(0, output.text.Length-1);
+
+        if (letter == ' ' | letter == '\n'){
+            DeleteLetter();
+        }
     }
 }

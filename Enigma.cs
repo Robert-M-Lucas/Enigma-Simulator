@@ -76,14 +76,14 @@ public class Enigma : MonoBehaviour
             if (letter > 25){
                 letter -= 26;
             }
-            out_str += "[Wheel " + r + " moved] " + rotors.alph[letter] + "\n";
+            out_str += "[W" + r + " rotated] " + rotors.alph[letter] + "\n";
             letter = RotorEncodings[rotors.rotor_type[r], letter];
-            out_str += "[Wheel " + r + " encode] " + rotors.alph[letter] + "\n";
+            out_str += "[W" + r + " encode] " + rotors.alph[letter] + "\n";
             letter -= rotors.rotor_pos[r];
             if (letter < 0){
                 letter += 26;
             }
-            out_str += "[Wheel " + r + " moved] " +  rotors.alph[letter] + "-->\n";
+            out_str += "[W" + r + " rotated] " +  rotors.alph[letter] + "-->\n";
         }
 
         if (rotors.rotor_type[0] != -1){
@@ -91,14 +91,14 @@ public class Enigma : MonoBehaviour
             if (letter > 25){
                 letter -= 26;
             }
-            out_str += "[Wheel " + 0 + " moved] " + rotors.alph[letter] + "\n";
+            out_str += "[W" + 0 + " rotated] " + rotors.alph[letter] + "\n";
             letter = RotorEncodings[rotors.rotor_type[0], letter];
-            out_str += "[Wheel " + 0 + " encode] " + rotors.alph[letter] + "\n";
+            out_str += "[W" + 0 + " encode] " + rotors.alph[letter] + "\n";
             letter -= rotors.rotor_pos[0];
             if (letter < 0){
                 letter += 26;
             }
-            out_str += "[Wheel " + 0 + " moved] " +  rotors.alph[letter] + "-->\n";
+            out_str += "[W" + 0 + " rotated] " +  rotors.alph[letter] + "-->\n";
         }
 
         letter = ReflectorEncodings[rotors.reflector, letter];
@@ -112,14 +112,14 @@ public class Enigma : MonoBehaviour
             if (letter > 25){
                 letter -= 26;
             }
-            out_str += "[Wheel " + 0 + " moved] " + rotors.alph[letter] + "\n";
+            out_str += "[W" + 0 + " rotated] " + rotors.alph[letter] + "\n";
             letter = ReflectArr(RotorEncodings, rotors.rotor_type[0], letter);
-            out_str += "[Wheel " + 0 + " encoded] " + rotors.alph[letter] + "\n";
+            out_str += "[W" + 0 + " encoded] " + rotors.alph[letter] + "\n";
             letter -= rotors.rotor_pos[0];
             if (letter < 0){
                 letter += 26;
             }
-            out_str += "[Wheel " + 0 + " moved] " +  rotors.alph[letter] + "-->\n";
+            out_str += "[W" + 0 + " rotated] " +  rotors.alph[letter] + "-->\n";
         }
 
         for (int r = 1; r < 4; r++){
@@ -127,14 +127,14 @@ public class Enigma : MonoBehaviour
             if (letter > 25){
                 letter -= 26;
             }
-            out_str += "[Wheel " + r + " moved] " + rotors.alph[letter] + "\n";
+            out_str += "[W" + r + " rotated] " + rotors.alph[letter] + "\n";
             letter = ReflectArr(RotorEncodings, rotors.rotor_type[r], letter);
-            out_str += "[Wheel " + r + " encoded] " + rotors.alph[letter] + "\n";
+            out_str += "[W" + r + " encoded] " + rotors.alph[letter] + "\n";
             letter -= rotors.rotor_pos[r];
             if (letter < 0){
                 letter += 26;
             }
-            out_str += "[Wheel " + r + " moved] " +  rotors.alph[letter] + "-->\n";
+            out_str += "[W" + r + " rotated] " +  rotors.alph[letter] + "-->\n";
         }
 
         letter = plugboard.plugboard(letter);
