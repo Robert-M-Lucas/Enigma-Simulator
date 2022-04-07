@@ -5,9 +5,10 @@ A (potentially outdated) build can be found here: https://drive.google.com/drive
 
 Uses rotor wirings found here: https://en.wikipedia.org/wiki/Enigma_rotor_details
 
-Produces identical results to these two simulators:  
+Produces identical results to these simulators:  
 https://piotte13.github.io/enigma-cipher/  
 https://www.101computing.net/enigma-machine-emulator/
+https://cryptii.com/pipes/enigma-decoder
 
 - A dash above the leftmost rotor indicated that it is not in use
 - The final encrypted message would not have spaces or new lines however these are included for ease of use
