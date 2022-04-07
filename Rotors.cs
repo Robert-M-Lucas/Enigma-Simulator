@@ -18,11 +18,7 @@ public class Rotors : MonoBehaviour
     [HideInInspector]
     public int[] rotor_type = new int[] { -1, 0, 0, 0 };
 
-    // Rotor types and turnover positions https://en.wikipedia.org/wiki/Enigma_machine#Turnover
-    private int reserved_rotors = 2;
-    private string[] rotor_type_names = new string[] { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "B", "G"};
-    private int[,] rotor_hooks = new int[,] { {17, -1}, {5, -1}, {22, -1}, {10, -1}, {0, -1}, {0, 13}, {0, 13}, {0, 13}, {-1, -1}, {-1, -1} };
-    private string[] reflector_names = new string[] { "A", "B", "C", "BT", "CT"};
+    
     [HideInInspector]
     public int reflector;
 
@@ -45,7 +41,7 @@ public class Rotors : MonoBehaviour
             rotor_pos[rotor] = 0;
         }
 
-        if ((rotor_pos[rotor] == rotor_hooks[rotor_type[rotor], 0] | rotor_pos[rotor] == rotor_hooks[rotor_type[rotor], 1]) & rotor > 1){
+        if ((rotor_pos[rotor] == EnigmaData.rotor_hooks[rotor_type[rotor], 0] | rotor_pos[rotor] == EnigmaData.rotor_hooks[rotor_type[rotor], 1]) & rotor > 1){
             rotor_pos[rotor-1]++;
             CheckTurnover(rotor - 1);
         }
@@ -65,8 +61,8 @@ public class Rotors : MonoBehaviour
             rotor_pos[rotor] = 25;
         }
 
-        int hook1 = rotor_hooks[rotor_type[rotor], 0] - 1;
-        int hook2 = rotor_hooks[rotor_type[rotor], 1] - 1;
+        int hook1 = EnigmaData.rotor_hooks[rotor_type[rotor], 0] - 1;
+        int hook2 = EnigmaData.rotor_hooks[rotor_type[rotor], 1] - 1;
         if (hook1 < 0){
             hook1 += 26;
         }
@@ -105,10 +101,10 @@ public class Rotors : MonoBehaviour
 
     public void ChangeRotor(int rotor){
         rotor_type[rotor] += 1;
-        if (rotor_type[rotor] >= rotor_type_names.Length - reserved_rotors){
+        if (rotor_type[rotor] >= EnigmaData.rotor_type_names.Length - EnigmaData.reserved_rotors){
             rotor_type[rotor] = 0;
         }
-        rotor_type_text[rotor].text = rotor_type_names[rotor_type[rotor]];
+        rotor_type_text[rotor].text = EnigmaData.rotor_type_names[rotor_type[rotor]];
         outputManager.Reset();
     }
 
@@ -125,14 +121,14 @@ public class Rotors : MonoBehaviour
             rotor_type_text[0].text = "-";
             return;
         }
-        rotor_type_text[0].text = rotor_type_names[rotor_type[0]];
+        rotor_type_text[0].text = EnigmaData.rotor_type_names[rotor_type[0]];
         outputManager.Reset();
     }
 
     public void ChangeReflector(){
         reflector++;
-        if (reflector >= reflector_names.Length){ reflector = 0; }
-        reflector_text.text = reflector_names[reflector];
+        if (reflector >= EnigmaData.reflector_names.Length){ reflector = 0; }
+        reflector_text.text = EnigmaData.reflector_names[reflector];
         outputManager.Reset();
     }
 }

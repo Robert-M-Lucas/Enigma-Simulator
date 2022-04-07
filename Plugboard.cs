@@ -82,8 +82,8 @@ public class Plugboard : MonoBehaviour
                 return;
             }
 
-            for (int i = 0; i < enigma.Keys.Length; i++){
-                if (Input.GetKeyDown(enigma.Keys[i])) { 
+            for (int i = 0; i < KeyboardData.Keys.Length; i++){
+                if (Input.GetKeyDown(KeyboardData.Keys[i])) { 
                     if (from == -1){
                         from = i;
                     }
