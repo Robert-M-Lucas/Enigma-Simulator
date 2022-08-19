@@ -3,7 +3,7 @@ Simulates an Enigma machine
 
 A (potentially outdated) build can be found here: https://drive.google.com/drive/folders/1ltD9UtSPMLAYL3TrhXXglumO-CNnsrt1?usp=sharing
 
-Uses rotor wirings found here: https://en.wikipedia.org/wiki/Enigma_rotor_details
+Rotor wirings used can be found here: https://en.wikipedia.org/wiki/Enigma_rotor_details
 
 Produces identical results to these simulators:  
 https://piotte13.github.io/enigma-cipher/  
