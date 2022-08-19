@@ -78,7 +78,6 @@ public class Enigma : MonoBehaviour
         letter = EnigmaData.ReflectorEncodings[rotors.reflector, letter];
         out_str += "[Reflector] " + rotors.alph[letter] + "->";
         DebugTextLeft.text = out_str;
-        Debug.Log(out_str);
         out_str = "";
 
         if (rotors.rotor_type[0] != -1){
@@ -114,7 +113,6 @@ public class Enigma : MonoBehaviour
         letter = plugboard.plugboard(letter);
         out_str += "[Plugboard] " + rotors.alph[letter] + "-->";
         DebugTextRight.text = out_str;
-        Debug.Log(out_str);
         outputManager.AddLetter(rotors.alph[letter_in].ToString(), rotors.alph[letter].ToString());
         OutputKeyboard.Light(letter);
     }

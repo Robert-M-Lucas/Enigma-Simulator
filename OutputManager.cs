@@ -32,10 +32,9 @@ public class OutputManager : MonoBehaviour
 
     public void Reset(){
         output.text = "";
-        input.text = "[" + rotors.reflector_text.text + "] [" + rotors.rotor_type_text[0].text + "/" + rotors.rotor_type_text[1].text + 
-        "/" + rotors.rotor_type_text[2].text + "/" + rotors.rotor_type_text[3].text + "] [" + 
-        rotors.rotors[0].text + "/" + rotors.rotors[1].text + "/" +
-        rotors.rotors[2].text + "/" + rotors.rotors[3].text + "]\n";
+        input.text = "[" + rotors.reflector_text.text + "] [" + 
+        rotors.rotor_type_text[0].text + ":" + rotors.rotor_type_text[1].text + ":" + rotors.rotor_type_text[2].text + ":" + rotors.rotor_type_text[3].text + "] [" + 
+        rotors.rotors[0].text + ":" + rotors.rotors[1].text + ":" + rotors.rotors[2].text + ":" + rotors.rotors[3].text + "]\n";
     }
 
     public void AddLetter(string letter_in, string letter_out){
